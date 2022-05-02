@@ -20,7 +20,7 @@
 // Intrinsic CLFLUSH for FLUSH+RELOAD attack
 #define CLFLUSH(address) _mm_clflush(address);
 
-#define SAMPLES 10000 // TODO: CONFIGURE THIS
+#define SAMPLES 906 // TODO: CONFIGURE THIS
 //50-1000
 
 #define L1_CACHE_SIZE (32*1024)
