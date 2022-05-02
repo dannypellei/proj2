@@ -21,6 +21,7 @@
 #define CLFLUSH(address) _mm_clflush(address);
 
 #define SAMPLES 10000 // TODO: CONFIGURE THIS
+//50-1000
 
 #define L1_CACHE_SIZE (32*1024)
 #define LINE_SIZE 64
@@ -152,12 +153,16 @@ void trojan(char byte)
         printf("pp trojan: unrecognized character %c\n", byte);
         exit(1);
     }
+
     //evictset_addr = evictset_addr->next
   //evictionset(set)
+  
   eviction_set_addr = get_eviction_set_address(trojan_array, set, 0);
   
-    eviction_set_addr = (uint64_t *)*eviction_set_addr;//do this until end
-    
+    while(eviction_set_addr != NULL){//finished going thro
+        eviction_set_addr = (uint64_t *)*eviction_set_addr;
+      
+    }
     /* TODO:
      * Your attack code goes in here.
      * so we are gonna wanna insert watever trojan does into our eviction set address
@@ -165,7 +170,7 @@ traverse all the sets once
 
 
      */  
-
+CPUID();
 }
 
 /* TODO:
@@ -218,12 +223,13 @@ char spy()
     for (i = 0; i < L1_NUM_SETS; i++) {
       
         eviction_set_addr = get_eviction_set_address(spy_array, i, 0);
+      CPUID();
       RDTSC(startTime);
-    if(eviction_set_addr != NULL){//finished going thro
+    while(eviction_set_addr != NULL){//finished going thro
         eviction_set_addr = (uint64_t *)*eviction_set_addr;
       
     }
-    
+      CPUID();
       RDTSC(endTime);
       if((endTime-startTime) > max_time){
         max_time = (endTime-startTime);
