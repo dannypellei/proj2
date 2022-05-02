@@ -154,7 +154,7 @@ void trojan(char byte)
     }
     //evictset_addr = evictset_addr->next
   //evictionset(set)
-  *eviction_set_addr = get_eviction_set_address(*trojan_array, set, 0);
+  *eviction_set_addr = get_eviction_set_address(trojan_array, set, 0);
   
     eviction_set_addr = (uint64_t *)*eviction_set_addr;//do this until end
     
@@ -217,7 +217,7 @@ char spy()
     // Probe the cache line by line and take measurements
     for (i = 0; i < L1_NUM_SETS; i++) {
       
-        eviction_set_addr = get_eviction_set_address(*spy_array, i, 0);
+        *eviction_set_addr = get_eviction_set_address(spy_array, i, 0);
       RDTSC(startTime);
     if(*eviction_set_addr != NULL){//finished going thro
         eviction_set_addr = (uint64_t *)*eviction_set_addr;
