@@ -29,6 +29,8 @@
 #define NUM_OFFSET_BITS 6
 #define NUM_INDEX_BITS 6
 #define NUM_OFF_IND_BITS (NUM_OFFSET_BITS + NUM_INDEX_BITS)
+uint64_t startTime;
+uint64_t endTime;
 
 uint64_t eviction_counts[L1_NUM_SETS] = {0};
 __attribute__ ((aligned (64))) uint64_t trojan_array[32*4096];
@@ -210,13 +212,30 @@ char spy()
 {
     int i, max_set;
     uint64_t *eviction_set_addr;
+    uint64_t max_time;
 
     // Probe the cache line by line and take measurements
     for (i = 0; i < L1_NUM_SETS; i++) {
+      
+        *eviction_set_addr = get_eviction_set_address(*spy_array, set, 0);//going thro
+      RDTSC(startTime);
+    if(*eviction_set_addr != NULL){//finished going thro
+        eviction_set_addr = (uint64_t *)*eviction_set_addr;
+      
+    }
+    
+      RDTSC(endTime);
+      if((endTime-startTime) > max_time){
+        (endTime-startTime) = max_time;
+        max_set = i;
+      }
+      
         /* TODO:
-         * Your attack code goes in here.
+         * Your attack code goes in here. PROBE. TIME THESE OPS for which did we take max am of time. Thats max set
          *
          */  
+        
+        
     }
     eviction_counts[max_set]++;
 }
