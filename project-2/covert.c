@@ -219,7 +219,7 @@ char spy()
       
         eviction_set_addr = get_eviction_set_address(spy_array, i, 0);
       RDTSC(startTime);
-    if(*eviction_set_addr != NULL){//finished going thro
+    if(eviction_set_addr != NULL){//finished going thro
         eviction_set_addr = (uint64_t *)*eviction_set_addr;
       
     }
