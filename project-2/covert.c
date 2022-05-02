@@ -217,7 +217,7 @@ char spy()
     // Probe the cache line by line and take measurements
     for (i = 0; i < L1_NUM_SETS; i++) {
       
-        *eviction_set_addr = get_eviction_set_address(*spy_array, set, 0);//going thro
+        *eviction_set_addr = get_eviction_set_address(*spy_array, i, 0);
       RDTSC(startTime);
     if(*eviction_set_addr != NULL){//finished going thro
         eviction_set_addr = (uint64_t *)*eviction_set_addr;
@@ -226,7 +226,7 @@ char spy()
     
       RDTSC(endTime);
       if((endTime-startTime) > max_time){
-        (endTime-startTime) = max_time;
+        max_time = (endTime-startTime);
         max_set = i;
       }
       
