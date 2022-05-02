@@ -151,7 +151,10 @@ void trojan(char byte)
         exit(1);
     }
     //evictset_addr = evictset_addr->next
-    eviction_set_addr = (uint64_t *)*eviction_set_addr;
+  //evictionset(set)
+  uint64_t *trojansEvictionSet = get_eviction_set_address(*trojan_array, set, 0);
+  
+    trojansEvictionSet = (uint64_t *)*eviction_set_addr;//do this until end
     
     /* TODO:
      * Your attack code goes in here.
